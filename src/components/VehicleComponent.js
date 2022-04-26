@@ -10,29 +10,16 @@ import {
   Row,
 } from "reactstrap";
 import { Control, LocalForm } from "react-redux-form";
-import { getByDriver } from "../redux/ActionCreator";
-import { connect } from "react-redux";
-
-const mapStateToProps = (state) => {
-  return {
-    vehicles: state.vehicles,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  getByDriver: (search) => dispatch(getByDriver(search)),
-});
 
 export class Vehicle extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      search: "",
+      // search: "",
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleInputChange(event) {
@@ -47,8 +34,7 @@ export class Vehicle extends Component {
   }
 
   handleSubmit(event) {
-    console.log("Current State is: " + JSON.stringify(this.state));
-    alert("Current State is: " + JSON.stringify(this.state));
+    this.props.getByDriver(event.search);
     event.preventDefault();
   }
 
@@ -116,4 +102,4 @@ export class Vehicle extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Vehicle);
+export default Vehicle;
