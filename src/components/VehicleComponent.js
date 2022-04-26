@@ -8,13 +8,19 @@ import {
   Button,
   Col,
   Row,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
 } from "reactstrap";
 import { Control, LocalForm } from "react-redux-form";
 
 export class Vehicle extends Component {
   constructor(props) {
     super(props);
-
+    this.state = {
+      selectedVehicle: "",
+    };
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
@@ -31,6 +37,14 @@ export class Vehicle extends Component {
   handleSubmit(event) {
     this.props.getByDriver(event.search);
     event.preventDefault();
+  }
+
+  handleUpdate(event) {
+    console.log(event);
+    // this.setState({
+    //   selectedVehicle: event.id,
+    // });
+    // this.props.update(event);
   }
 
   render() {
@@ -58,6 +72,8 @@ export class Vehicle extends Component {
         </LocalForm>
       </div>
     );
+
+    const vehicleDetail = <span>{this.selectedVehicle}</span>;
 
     const menu = this.props.vehicles.map((vehicle) => {
       return (
@@ -88,7 +104,7 @@ export class Vehicle extends Component {
               <span> {vehicle.email} </span>
             </CardTitle>
             <div className="row">
-              <Button>Update</Button>
+              <Button onClick={this.handleUpdate(vehicle)}>Update</Button>
               <Button>Delete</Button>
             </div>
           </CardBody>
@@ -96,9 +112,56 @@ export class Vehicle extends Component {
       );
     });
 
+    const dialog = (
+      <Modal toggle={function noRefCheck() {}}>
+        <ModalHeader
+          close={
+            <button className="close" onClick={function noRefCheck() {}}>
+              ×
+            </button>
+          }
+          toggle={function noRefCheck() {}}
+        >
+          Modal title
+        </ModalHeader>
+        <ModalBody></ModalBody>
+        <LocalForm onSubmit={(values) => this.handleUpdate(values)}>
+          <Row className="form-group">
+            <Col md={12}>
+              <Control.text
+                model=".id"
+                id="id"
+                name="id"
+                placeholder="id"
+                className="form-control "
+              />
+            </Col>
+          </Row>
+          <Row className="form-group">
+            <Col md={12}>
+              <Control.text
+                model=".model"
+                id="model"
+                name="model"
+                placeholder="model"
+                className="form-control "
+              />
+            </Col>
+          </Row>
+        </LocalForm>
+        <ModalFooter>
+          <Button color="primary" onClick={function noRefCheck() {}}>
+            Atualizar
+          </Button>{" "}
+          <Button onClick={function noRefCheck() {}}>Cancel</Button>
+        </ModalFooter>
+      </Modal>
+    );
+
     return (
       <div className="container">
         <div className="row">{seach}</div>
+        <div className="row">{vehicleDetail}</div>
         <div className="row">{menu}</div>
       </div>
     );

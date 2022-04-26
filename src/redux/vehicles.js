@@ -7,9 +7,14 @@ export const Vehicles = (state = { vehicles: [] }, action) => {
       console.log("Search: ", search);
       console.log(action.payload);
       return { ...state, vehicles: action.payload };
-    //   return state.concat(search);
 
     case ActionTypes.ADD_VEHICLES:
+      return {
+        ...state,
+        vehicles: action.payload,
+      };
+
+    case ActionTypes.UPDATE_VEHICLES:
       return {
         ...state,
         vehicles: action.payload,

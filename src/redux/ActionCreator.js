@@ -8,11 +8,6 @@ export const getByDriver = (search, ß) => ({
   },
 });
 
-// export const addVehicles = (vehicles) => ({
-//   type: ActionTypes.GET_BY_DRIVER,
-//   payload: vehicles,
-// });
-
 export const fetchVehicles = (query) => (dispatch) => {
   const { page, limit, search } = query;
   let url = `${baseUrl}vehicle/?page=${page}&limit=${limit}`;
