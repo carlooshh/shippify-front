@@ -5,7 +5,7 @@ import { Component } from "react";
 import { VEHICLES } from "../shared/vehicles";
 import { Provider } from "react-redux";
 import { store } from "../redux/configureStore";
-import { getByDriver } from "../redux/ActionCreator";
+import { getByDriver, fetchVehicles } from "../redux/ActionCreator";
 import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
@@ -15,10 +15,16 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  getByDriver: (search) => dispatch(getByDriver(search)),
+  getByDriver: (search) =>
+    dispatch(fetchVehicles({ page: 1, limit: 20, search: search })),
+  fecthVehicles: ({ page, limit }) => dispatch(fetchVehicles({ page, limit })),
 });
 
 class Main extends Component {
+  componentDidMount() {
+    this.props.fecthVehicles({ page: 1, limit: 20 });
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -27,6 +33,7 @@ class Main extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <Provider store={store}>
         <div className="App">
@@ -37,7 +44,7 @@ class Main extends Component {
           </Navbar>
 
           <Vehicle
-            vehicles={this.state.vehicles}
+            vehicles={this.props.vehicles.vehicles}
             getByDriver={this.props.getByDriver}
           />
         </div>

@@ -14,16 +14,11 @@ import { Control, LocalForm } from "react-redux-form";
 export class Vehicle extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      // search: "",
-    };
 
     this.handleInputChange = this.handleInputChange.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleInputChange(event) {
-    console.log(event);
     const target = event.target;
     const value = target.value;
     const name = target.name;
@@ -40,16 +35,16 @@ export class Vehicle extends Component {
 
   render() {
     const seach = (
-      <div className="col-12 mt-5">
+      <div className="col-12 mt-5 " md={{ size: 8, offset: 2 }}>
         <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
           <Row className="form-group">
-            <Col md={10}>
+            <Col md={12}>
               <Control.text
                 model=".search"
                 id="search"
                 name="search"
                 placeholder="Search by driver's name, phone number, or email"
-                className="form-control"
+                className="form-control "
               />
             </Col>
           </Row>
@@ -81,8 +76,16 @@ export class Vehicle extends Component {
               <span> {vehicle.capacity} </span>
             </CardTitle>
             <CardTitle>
-              Created At:
-              <span> {vehicle.creation_date.toISOString()} </span>
+              driver`s name:
+              <span> {vehicle.first_name} </span>
+            </CardTitle>
+            <CardTitle>
+              Driver`s phone:
+              <span> {vehicle.phone} </span>
+            </CardTitle>
+            <CardTitle>
+              Driver`s email:
+              <span> {vehicle.email} </span>
             </CardTitle>
             <div className="row">
               <Button>Update</Button>
