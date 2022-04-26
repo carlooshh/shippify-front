@@ -1,25 +1,53 @@
 import logo from "./logo.svg";
 import "./App.css";
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  CardText,
+  Button,
+  Navbar,
+  NavbarBrand,
+} from "reactstrap";
+import { Vehicle } from "./components/VehicleComponent";
+import { Component } from "react";
+import { VEHICLES } from "./shared/vehicles";
+import { Provider } from "react-redux";
+import { store } from "./redux/configureStore";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const mapStateToProps = (state) => {
+  return {
+    dishes: state.dishes,
+    comments: state.comments,
+    promotions: state.promotions,
+    leaders: state.leaders,
+  };
+};
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      vehicles: VEHICLES,
+    };
+  }
+
+  render() {
+    return (
+      <Provider store={store}>
+        <div className="App">
+          <Navbar dark color="primary">
+            <div className="container">
+              <NavbarBrand href="/">Shippify</NavbarBrand>
+            </div>
+          </Navbar>
+
+          <Vehicle vehicles={this.state.vehicles} />
+        </div>
+      </Provider>
+    );
+  }
 }
 
 export default App;
