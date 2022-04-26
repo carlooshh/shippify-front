@@ -61,7 +61,7 @@ export class Vehicle extends Component {
 
     const menu = this.props.vehicles.map((vehicle) => {
       return (
-        <Card key={vehicle.id} className="col-12 mt-5">
+        <Card key={vehicle.creation_date} className="col-12 mt-5">
           <CardBody className="text-right">
             <CardTitle tag="h5">{vehicle.type}</CardTitle>
             <CardSubtitle className="mb-2 text-muted" tag="h6">
